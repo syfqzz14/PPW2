@@ -1,0 +1,93 @@
+Traceback (most recent call last):
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/nbclient/client.py", line 1323, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/base_events.py", line 684, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/nbclient/client.py", line 709, in async_execute
+    await self.async_execute_cell(
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+def main():
+
+    warnings.filterwarnings('ignore')
+
+    #folderListURL = pathFile
+    fileListURL = "E:\Tugas Kuliah\Semester_lima\Ektraksi Informasi\hasilListURLPage.txt"
+    fileMetaCSV = "E:\Tugas Kuliah\Semester_lima\Ektraksi Informasi\hasil.csv"
+    listHasil =[]
+
+    startTime = time.time()
+    openfileListURL = open(fileListURL, "r", encoding='UTF8')
+    bacaListURL = openfileListURL.readlines()
+
+    i = 1
+    for barisURL in bacaListURL:
+        try:
+            #print(str(barisURL))
+            hasil = generateMeta(str(barisURL))
+            listHasil.append(hasil)
+            print("======= ROW HASIL =======",i)
+            #print(hasil)
+        except Exception as e:
+            print(f"Error Get Meta Inf, {e}")
+        i=i+1
+
+    createFile = generateFileCSV(listHasil,fileMetaCSV)
+
+    openfileListURL.close()
+    endTime = time.time()
+    #print(listHasil)
+    print('Time Processing : ', endTime-startTime, ' Second')
+
+main();
+
+
+------------------
+
+----- stderr -----
+<>:6: SyntaxWarning: invalid escape sequence '\T'
+<>:7: SyntaxWarning: invalid escape sequence '\T'
+<>:6: SyntaxWarning: invalid escape sequence '\T'
+<>:7: SyntaxWarning: invalid escape sequence '\T'
+/tmp/ipykernel_16712/3906290239.py:6: SyntaxWarning: invalid escape sequence '\T'
+  fileListURL = "E:\Tugas Kuliah\Semester_lima\Ektraksi Informasi\hasilListURLPage.txt"
+/tmp/ipykernel_16712/3906290239.py:7: SyntaxWarning: invalid escape sequence '\T'
+  fileMetaCSV = "E:\Tugas Kuliah\Semester_lima\Ektraksi Informasi\hasil.csv"
+------------------
+
+[31m---------------------------------------------------------------------------[39m
+[31mFileNotFoundError[39m                         Traceback (most recent call last)
+[36mCell[39m[36m [39m[32mIn[4][39m[32m, line 33[39m
+[32m     30[39m     [38;5;66;03m#print(listHasil)[39;00m
+[32m     31[39m     [38;5;28mprint[39m([33m'[39m[33mTime Processing : [39m[33m'[39m, endTime-startTime, [33m'[39m[33m Second[39m[33m'[39m)
+[32m---> [39m[32m33[39m [43mmain[49m[43m([49m[43m)[49m;
+
+[36mCell[39m[36m [39m[32mIn[4][39m[32m, line 11[39m, in [36mmain[39m[34m()[39m
+[32m      8[39m listHasil =[]
+[32m     10[39m startTime = time.time()
+[32m---> [39m[32m11[39m openfileListURL = [38;5;28;43mopen[39;49m[43m([49m[43mfileListURL[49m[43m,[49m[43m [49m[33;43m"[39;49m[33;43mr[39;49m[33;43m"[39;49m[43m,[49m[43m [49m[43mencoding[49m[43m=[49m[33;43m'[39;49m[33;43mUTF8[39;49m[33;43m'[39;49m[43m)[49m
+[32m     12[39m bacaListURL = openfileListURL.readlines()
+[32m     14[39m i = [32m1[39m
+
+[36mFile [39m[32m/usr/local/python/3.12.1/lib/python3.12/site-packages/IPython/core/interactiveshell.py:344[39m, in [36m_modified_open[39m[34m(file, *args, **kwargs)[39m
+[32m    337[39m [38;5;28;01mif[39;00m file [38;5;129;01min[39;00m {[32m0[39m, [32m1[39m, [32m2[39m}:
+[32m    338[39m     [38;5;28;01mraise[39;00m [38;5;167;01mValueError[39;00m(
+[32m    339[39m         [33mf[39m[33m"[39m[33mIPython won[39m[33m'[39m[33mt let you open fd=[39m[38;5;132;01m{[39;00mfile[38;5;132;01m}[39;00m[33m by default [39m[33m"[39m
+[32m    340[39m         [33m"[39m[33mas it is likely to crash IPython. If you know what you are doing, [39m[33m"[39m
+[32m    341[39m         [33m"[39m[33myou can use builtins[39m[33m'[39m[33m open.[39m[33m"[39m
+[32m    342[39m     )
+[32m--> [39m[32m344[39m [38;5;28;01mreturn[39;00m [43mio_open[49m[43m([49m[43mfile[49m[43m,[49m[43m [49m[43m*[49m[43margs[49m[43m,[49m[43m [49m[43m*[49m[43m*[49m[43mkwargs[49m[43m)[49m
+
+[31mFileNotFoundError[39m: [Errno 2] No such file or directory: 'E:\\Tugas Kuliah\\Semester_lima\\Ektraksi Informasi\\hasilListURLPage.txt'
+
